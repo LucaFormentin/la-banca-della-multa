@@ -6,6 +6,8 @@ import { LANDING_PAGE } from '@/lib/routes'
 import { useRouter } from 'next/navigation'
 import { useEffect, type MouseEvent } from 'react'
 import GoogleBtn from './GoogleBtn'
+import SignInPasswordForm from './SignInPasswordForm'
+import { type UserCredential } from 'firebase/auth'
 
 const AuthController = () => {
   const authenticatedUser = useAuthCtx()
@@ -15,7 +17,7 @@ const AuthController = () => {
     // Check if the user is already authenticated
     // If so, redirect to the landing page
     if (authenticatedUser) {
-      router.push(LANDING_PAGE)
+      router.push(`/${authenticatedUser.uid}/${LANDING_PAGE}`)
     }
   }, [])
 
@@ -23,17 +25,19 @@ const AuthController = () => {
     e.preventDefault()
 
     signInWithGoogle()
+      .then(({ user }: UserCredential) => {
+        const { uid } = user
+        router.push(`/${uid}/${LANDING_PAGE}`)
+      })
       .catch((error) => {
         console.error(error)
-      })
-      .finally(() => {
-        router.push(LANDING_PAGE)
       })
   }
 
   return (
-    <div>
+    <div className='flex flex-col gap-4 justify-center items-center'>
       <GoogleBtn onClick={handleSignInWithGoogle} />
+      <SignInPasswordForm />
     </div>
   )
 }

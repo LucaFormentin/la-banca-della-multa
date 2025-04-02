@@ -13,9 +13,11 @@ export async function signInWithGoogle() {
   const provider = new GoogleAuthProvider()
 
   try {
-    await signInWithPopup(auth, provider)
+    const res = await signInWithPopup(auth, provider)
 
     // create new user in database if not exists
+    
+    return res
   } catch (error: any) {
     const errorCode = error.code
     const errorMessage = error.message
