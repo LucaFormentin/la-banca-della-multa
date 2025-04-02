@@ -4,7 +4,6 @@ import { inter } from './fonts/config'
 import AppProvider from './providers/app-provider'
 import { getAuthenticatedAppForUser } from '@/lib/firebase/server-app'
 import { AuthContextProvider } from './context/auth-context'
-import Header from '@/components/Header'
 
 export const metadata: Metadata = {
   title: 'La Banca della Multa',
@@ -23,7 +22,6 @@ export default async function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <AppProvider>
           <AuthContextProvider initialUser={currentUser}>
-            <Header />
             {children}
           </AuthContextProvider>
         </AppProvider>
