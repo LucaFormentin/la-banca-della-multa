@@ -34,8 +34,20 @@ export async function signInWithGoogle() {
 
   try {
     const res = await signInWithPopup(auth, provider)
+    const { user: authenticatedUser } = res
 
-    addUserToDatabase(res)
+    const usersC = new Users()
+    let user = await usersC.findUserByUid(authenticatedUser.uid)
+
+    if (!user) {
+      // User does not exist in the database, create a new user
+      await usersC.create({
+        uid: authenticatedUser.uid,
+        email: authenticatedUser.email,
+        displayName: authenticatedUser.displayName,
+        photoURL: authenticatedUser.photoURL,
+      })
+    }
 
     return res
   } catch (error: any) {
