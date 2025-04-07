@@ -11,6 +11,8 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary-blue: #215175;
+    --secondary-blue: #C1D8D2;
   }
 }
 

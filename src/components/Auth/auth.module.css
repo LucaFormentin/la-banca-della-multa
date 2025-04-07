@@ -1,0 +1,39 @@
+.controller__wrapper {
+  @apply h-full self-end flex flex-col gap-4 text-center items-center w-full rounded-t-3xl bg-primaryblue;
+}
+
+.controller__title {
+  @apply text-3xl font-semibold text-center text-white py-6;
+}
+
+.controller__body {
+  @apply flex flex-col items-center gap-2 h-full w-3/5;
+}
+
+.google__btn {
+  @apply p-4 rounded-full border border-solid border-secondaryblue hover:bg-white/[.145];
+}
+
+.auth__form {
+  @apply flex flex-col items-center gap-2 w-full;
+}
+
+.auth__form > input {
+  @apply w-full max-w-[400px] p-2 border border-secondaryblue rounded-lg text-background bg-secondaryblue;
+}
+
+.auth__form > input:focus {
+  @apply outline-none;
+}
+
+.subscribe__btn {
+  @apply w-full max-w-[400px] p-2 bg-blue-500 text-white rounded-md;
+}
+
+.auth__form__error {
+  @apply text-red-500 text-sm italic;
+}
+
+.divider {
+  @apply w-1/2 text-sm;
+}
