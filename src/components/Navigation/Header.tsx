@@ -4,6 +4,8 @@ import { signOut } from '@/lib/firebase/auth'
 import { ROUTE } from '@/lib/routes'
 import { useRouter } from 'next/navigation'
 import AccountMenu, { type MenuItemT } from './AccountMenu'
+import toast from 'react-hot-toast'
+import classes from './nav.module.css'
 
 const Header = () => {
   const router = useRouter()
@@ -15,6 +17,7 @@ const Header = () => {
       })
       .finally(() => {
         router.push(ROUTE)
+        toast.success('Signed out successfully!')
       })
   }
 
@@ -29,7 +32,7 @@ const Header = () => {
   }
 
   return (
-    <header className='w-full flex justify-end border-b-2 border-red-500'>
+    <header className={classes.header__wrapper}>
       <AccountMenu onItemClick={handleMenuItemClick} />
     </header>
   )

@@ -1,0 +1,7 @@
+.header__wrapper {
+  @apply flex items-center justify-end w-full bg-primaryblue p-2 shadow-md border-b-2 rounded-b-xl border-b-secondaryblue;
+}
+
+.account__circle__wrapper {
+  @apply flex items-center text-center;
+}
