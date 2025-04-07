@@ -1,3 +1,4 @@
+import { Users } from '../classes/Users'
 import { auth } from './config'
 import {
   GoogleAuthProvider,
@@ -5,7 +6,24 @@ import {
   createUserWithEmailAndPassword as _createUserWithEmailAndPassword,
   signInWithEmailAndPassword as _signInWithEmailAndPassword,
   onAuthStateChanged as _onAuthStateChanged,
+  UserCredential,
 } from 'firebase/auth'
+
+/**
+ * Adds a user to the database after creating an account.
+ * @param param0 - The user credential object returned from Firebase.
+ */
+const addUserToDatabase = async ({ user }: UserCredential) => {
+  const userData = {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+  }
+
+  const users = new Users()
+  await users.create(userData)
+}
 
 export function onAuthStateChanged(callbackFn: any) {
   return _onAuthStateChanged(auth, callbackFn)
@@ -17,7 +35,7 @@ export async function signInWithGoogle() {
   try {
     const res = await signInWithPopup(auth, provider)
 
-    // create new user in database if not exists
+    addUserToDatabase(res)
 
     return res
   } catch (error: any) {
@@ -36,6 +54,9 @@ export async function createUserWithEmailAndPassword(
 ) {
   try {
     const res = await _createUserWithEmailAndPassword(auth, email, password)
+
+    addUserToDatabase(res)
+
     return res
   } catch (error) {
     throw new Error(`Error creating user with email and password: ${error}`)

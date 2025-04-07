@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <header>
-      <span>Current User: {authenticatedUser?.displayName}</span>
+      <span>Current User: {authenticatedUser?.email}</span>
       <button
         className='rounded-full border border-solid border-white/[.145] p-4 px-8 text-center'
         onClick={handleSignOut}

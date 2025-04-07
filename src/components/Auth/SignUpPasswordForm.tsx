@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import classes from './auth.module.css'
 import { createUserWithEmailAndPassword } from '@/lib/firebase/auth'
 import toast from 'react-hot-toast'
@@ -15,7 +15,7 @@ const SignUpPasswordForm = (props: Props) => {
       password: '',
       confirm_password: '',
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       createUserWithEmailAndPassword(value.email, value.password)
         .then(() => {
           // redirect to signin form
@@ -24,10 +24,13 @@ const SignUpPasswordForm = (props: Props) => {
         })
         .catch((error) => {
           console.error(error)
+          
+          toast.error(error.message)
+          form.reset()
         })
     },
     validators: {
-      onSubmitAsync: async ({ value }) => {
+      onSubmit: ({ value }) => {
         if (value.password.length < 6) {
           return 'Password must be at least 6 characters long!'
         }
@@ -35,8 +38,6 @@ const SignUpPasswordForm = (props: Props) => {
         if (value.confirm_password !== value.password) {
           return 'Passwords do not match!'
         }
-
-        //TODO: check if user already exists
 
         return undefined
       },

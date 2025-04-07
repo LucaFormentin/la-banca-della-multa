@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { type MouseEvent } from 'react'
 import classes from './auth.module.css'
+import toast from 'react-hot-toast'
 
 const SignInGoogleBtn = () => {
   const router = useRouter()
@@ -19,6 +20,8 @@ const SignInGoogleBtn = () => {
       })
       .catch((error) => {
         console.error(error)
+
+        toast.error(error.message)
       })
   }
 

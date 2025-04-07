@@ -7,6 +7,7 @@ import { getDatabase } from 'firebase/database'
 const firebaseConfig = {
   apiKey: 'AIzaSyBLwdDDbIkNUN5VE3u1R-dR9vMl-5FzTQ4',
   authDomain: 'la-banca-della-multa.firebaseapp.com',
+  databaseURL: 'https://la-banca-della-multa-default-rtdb.europe-west1.firebasedatabase.app/',
   projectId: 'la-banca-della-multa',
   storageBucket: 'la-banca-della-multa.firebasestorage.app',
   messagingSenderId: '581107301420',
@@ -17,6 +18,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
-const db = getDatabase(app)
+const database = getDatabase(app)
 
-export { firebaseConfig, app, auth, db }
+export { firebaseConfig, app, auth, database }
