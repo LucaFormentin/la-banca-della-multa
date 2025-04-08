@@ -1,5 +1,6 @@
 import clsx, { type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import moment from "moment"
 
 /**
  * Generates a random string of the specified length.
@@ -19,3 +20,14 @@ export const generateRandomStr = (length: number) => {
  * @returns The combined class names as a string.
  */
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
+
+/**
+ * 
+ * @returns The current date and time in the format 'YYYY-MM-DD HH:mm:ss'.
+ */
+export const getCurrentDateTime = () => {
+  let isoDatetime = new Date().toISOString()
+  let datetime = moment(isoDatetime).format('YYYY-MM-DD HH:mm:ss')
+
+  return datetime
+}

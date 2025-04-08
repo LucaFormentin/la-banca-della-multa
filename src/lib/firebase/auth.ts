@@ -1,4 +1,4 @@
-import { Users } from '../classes/Users'
+import { type AuthenticatedUserT, Users } from '../classes/Users'
 import { auth } from './config'
 import {
   GoogleAuthProvider,
@@ -14,7 +14,7 @@ import {
  * @param param0 - The user credential object returned from Firebase.
  */
 const addUserToDatabase = async ({ user }: UserCredential) => {
-  const userData = {
+  const userData: AuthenticatedUserT = {
     uid: user.uid,
     email: user.email,
     displayName: user.displayName,

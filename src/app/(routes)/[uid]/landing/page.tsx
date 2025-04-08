@@ -1,4 +1,6 @@
-import Header from '@/components/Header'
+import Header from '@/components/Navigation/Header'
+import LandingPageMainSection from '@/components/Pages/LandingPageMainSection'
+import { Users } from '@/lib/classes/Users'
 
 export default async function LandingPage({
   params,
@@ -11,10 +13,19 @@ export default async function LandingPage({
     return <p>Invalid UID...</p>
   }
 
+  const usersC = new Users()
+  const user = await usersC.findUserByUid(uid)
+
+  if (!user) {
+    return <p>User not found...</p>
+  }
+
   return (
     <>
       <Header />
-      <p>Landing Page</p>
+      <section className='flex flex-col gap-6 p-2'>
+        <LandingPageMainSection userData={user} />
+      </section>
     </>
   )
 }

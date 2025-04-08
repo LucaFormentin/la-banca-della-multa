@@ -1,0 +1,15 @@
+.form__wrapper {
+   @apply flex flex-col items-center gap-2 p-4 w-full;
+}
+
+.form__wrapper > input {
+   @apply w-full px-2 border border-secondaryblue rounded-lg text-background bg-secondaryblue;
+}
+
+.form__wrapper > input:focus {
+   @apply outline-none;
+}
+
+.subscribe__btn {
+  @apply w-full p-2 bg-blue-500 text-white rounded-md;
+}

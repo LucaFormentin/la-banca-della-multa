@@ -2,7 +2,8 @@
 
 import { User } from 'firebase/auth'
 import { createContext, type PropsWithChildren, useContext } from 'react'
-import useUserSession, { type AuthenticatedUserT } from '../hooks/useUserSession'
+import useUserSession from '../hooks/useUserSession'
+import { type AuthenticatedUserT } from '@/lib/classes/Users'
 
 type AuthContextProviderProps = PropsWithChildren<{
   initialUser: User | null

@@ -1,21 +1,15 @@
 'use client'
 
+import { type AuthenticatedUserT } from '@/lib/classes/Users'
 import { onAuthStateChanged } from '@/lib/firebase/auth'
 import { type User } from 'firebase/auth'
 import { useState, useEffect } from 'react'
-
-export type AuthenticatedUserT = {
-  uid: string
-  email: string | null
-  displayName: string | null
-  photoURL: string | null
-}
 
 /**
  *
  * @param props - initialUser: The user object returned from Firebase authentication. This is used to set the initial state of the user.
  * @returns
- * - user: The authenticated user object. It contains the uid, email, and displayName of the user.
+ * - user: The authenticated user object. It contains all data retrieved from Firebase.
  * - isLoading: A boolean indicating whether the authentication state is still being loaded.
  */
 const useUserSession = (props: { initialUser: User | null }) => {
@@ -32,14 +26,16 @@ const useUserSession = (props: { initialUser: User | null }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged((u: User) => {
-      u
-        ? setUser({
-            uid: u.uid,
-            email: u.email,
-            displayName: u.displayName,
-            photoURL: u.photoURL,
-          })
-        : setUser(null)
+      if (!u) {
+        setUser(null)
+      } else {
+        setUser({
+          uid: u.uid,
+          email: u.email,
+          displayName: u.displayName,
+          photoURL: u.photoURL,
+        })
+      }
 
       setIsLoading(false)
     })
