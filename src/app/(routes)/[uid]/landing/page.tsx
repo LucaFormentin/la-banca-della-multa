@@ -23,7 +23,7 @@ export default async function LandingPage({
   return (
     <>
       <Header />
-      <section className='flex flex-col gap-6 p-2'>
+      <section className='flex flex-col gap-4 p-2'>
         <LandingPageMainSection userData={user} />
       </section>
     </>

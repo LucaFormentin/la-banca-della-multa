@@ -1,15 +1,23 @@
 .form__wrapper {
-   @apply flex flex-col items-center gap-2 p-4 w-full;
+   @apply flex flex-col items-center gap-2 w-full px-6;
 }
 
-.form__wrapper > input {
-   @apply w-full px-2 border border-secondaryblue rounded-lg text-background bg-secondaryblue;
+.input__wrapper {
+   @apply flex gap-4 w-full justify-between items-center text-sm;
 }
 
-.form__wrapper > input:focus {
+.input__wrapper > label {
+   @apply items-start;
+}
+
+.input__wrapper > input {
+   @apply p-1 rounded-md;
+}
+
+.input__wrapper > input:focus {
    @apply outline-none;
 }
 
 .subscribe__btn {
-  @apply w-full p-2 bg-blue-500 text-white rounded-md;
+  @apply bg-blue-500 text-white rounded-md p-2 w-1/2 mt-4;
 }

@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const u = await usersC.findUserByUid(member.uid)
 
     if (!u) {
-      return new Response(`User not found witj UID: ${member.uid}`, {
+      return new Response(`User not found with UID: ${member.uid}`, {
         status: 404,
       })
     }

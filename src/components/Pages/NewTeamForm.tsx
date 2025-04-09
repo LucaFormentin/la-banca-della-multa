@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form'
-import { type FormEvent } from 'react'
+import { PropsWithChildren, type FormEvent } from 'react'
 import classes from './pages.module.css'
 import { api } from '@/lib/utils/api-client'
 import { type TeamT } from '@/lib/classes/Teams'
@@ -7,9 +7,21 @@ import { useAuthCtx } from '@/app/context/auth-context'
 import { generateRandomStr, getCurrentDateTime } from '@/lib/utils/helpers'
 import toast from 'react-hot-toast'
 
-type Props = {}
+type InputWrapperProps = PropsWithChildren<{
+  label: string
+  labelHtmlRef: string
+}>
 
-const NewTeamForm = (props: Props) => {
+const InputWrapper = ({ children, ...props }: InputWrapperProps) => {
+  return (
+    <div className={classes.input__wrapper}>
+      <label htmlFor={props.labelHtmlRef}>{props.label}</label>
+      {children}
+    </div>
+  )
+}
+
+const NewTeamForm = () => {
   const authenticatedUser = useAuthCtx()
 
   const form = useForm({
@@ -32,7 +44,6 @@ const NewTeamForm = (props: Props) => {
           },
         ],
       }
-      
 
       // fetch API to create a new team in DB
       api
@@ -58,51 +69,59 @@ const NewTeamForm = (props: Props) => {
       <form.Field
         name='name'
         children={(field) => (
-          <input
-            type='text'
-            placeholder='Nome squadra'
-            name={field.name}
-            value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
-            required
-          />
+          <InputWrapper label='Nome squadra' labelHtmlRef='name'>
+            <input
+              type='text'
+              placeholder='Inserisci nome'
+              name={field.name}
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              required
+            />
+          </InputWrapper>
         )}
       />
       <form.Field
         name='location'
         children={(field) => (
-          <input
-            type='text'
-            placeholder='Città'
-            name={field.name}
-            value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
-          />
+          <InputWrapper label='Città' labelHtmlRef='location'>
+            <input
+              type='text'
+              placeholder='Inserisci città'
+              name={field.name}
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
+          </InputWrapper>
         )}
       />
       <form.Field
         name='color'
         children={(field) => (
-          <input
-            type='color'
-            placeholder='Colore principale'
-            name={field.name}
-            value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
-            required
-          />
+          <InputWrapper label='Colore principale' labelHtmlRef='color'>
+            <input
+              type='color'
+              placeholder='Colore principale'
+              name={field.name}
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              required
+            />
+          </InputWrapper>
         )}
       />
       <form.Field
         name='logo'
         children={(field) => (
-          <input
-            type='text'
-            placeholder='Logo squadra'
-            name={field.name}
-            value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
-          />
+          <InputWrapper label='Logo' labelHtmlRef='logo'>
+            <input
+              type='text'
+              placeholder='Scegli logo'
+              name={field.name}
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
+          </InputWrapper>
         )}
       />
       <form.Subscribe
