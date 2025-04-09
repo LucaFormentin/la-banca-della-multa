@@ -1,23 +1,51 @@
 .form__wrapper {
-   @apply flex flex-col items-center gap-2 w-full px-6;
+  @apply flex flex-col items-center gap-2 w-full px-6;
 }
 
 .input__wrapper {
-   @apply flex gap-4 w-full justify-between items-center text-sm;
+  @apply flex gap-4 w-full justify-between items-center text-sm;
 }
 
 .input__wrapper > label {
-   @apply items-start;
+  @apply items-start;
 }
 
 .input__wrapper > input {
-   @apply p-1 rounded-md;
+  @apply p-1 rounded-md text-black;
 }
 
 .input__wrapper > input:focus {
-   @apply outline-none;
+  @apply outline-none;
 }
 
 .subscribe__btn {
   @apply bg-blue-500 text-white rounded-md p-2 w-1/2 mt-4;
+}
+
+.card__list {
+  @apply w-full p-4 gap-2 flex flex-col;
+}
+
+.team__card {
+  @apply bg-white/[.145] rounded-lg p-2 px-4 relative flex gap-2 items-center;
+}
+
+.team__card > img:first-child {
+  @apply w-14 h-14 rounded-full border-2 border-white bg-white/[.45] p-1;
+}
+
+.team__info > p:nth-child(1) {
+  @apply font-semibold;
+}
+
+.team__info > p:nth-child(2) {
+  @apply text-xs;
+}
+
+.enter__btn {
+  @apply bg-white/[.120] w-8 h-full absolute right-0 rounded-r-lg flex justify-center items-center;
+}
+
+.join__btn {
+  @apply absolute right-4;
 }

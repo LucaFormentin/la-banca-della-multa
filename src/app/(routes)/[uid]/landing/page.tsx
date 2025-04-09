@@ -1,6 +1,7 @@
 import Header from '@/components/Navigation/Header'
 import LandingPageMainSection from '@/components/Pages/LandingPageMainSection'
-import { Users } from '@/lib/classes/Users'
+import { Teams } from '@/lib/classes/Teams'
+import { User, Users } from '@/lib/classes/Users'
 
 export default async function LandingPage({
   params,
@@ -20,11 +21,21 @@ export default async function LandingPage({
     return <p>User not found...</p>
   }
 
+  const userC = new User(user.key!)
+  const userTeams = await userC.getTeamDataFromSubscriptions()
+
+  const teamsC = new Teams()
+  const allTeams = await teamsC.get()
+
   return (
     <>
       <Header />
       <section className='flex flex-col gap-4 p-2'>
-        <LandingPageMainSection userData={user} />
+        <LandingPageMainSection
+          userData={user}
+          userTeams={userTeams}
+          teams={allTeams}
+        />
       </section>
     </>
   )

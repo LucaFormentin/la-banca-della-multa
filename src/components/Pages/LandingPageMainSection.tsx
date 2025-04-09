@@ -1,18 +1,40 @@
 'use client'
 
 import { useAuthCtx } from '@/app/context/auth-context'
-import { type AuthenticatedUserT } from '@/lib/classes/Users'
+import {
+  type UserTeamDataT,
+  type AuthenticatedUserT,
+} from '@/lib/classes/Users'
 import NewTeamForm from './NewTeamForm'
 import { useState } from 'react'
+import UserSubscriptions from './UserSubscriptions'
+import AvailableTeams from './AvailableTeams'
+import { type TeamT } from '@/lib/classes/Teams'
 
 type Props = {
-  // userData: user data retrieved from the database with team subscriptions info
   userData: AuthenticatedUserT
+  userTeams: UserTeamDataT[]
+  teams: TeamT[]
 }
 
-const LandingPageMainSection = ({ userData }: Props) => {
+/**
+ * 
+ * @param userData user data retrieved from the database with UID key
+ * @param userTeams teams data retrieved from the single user subscriptions
+ * @param teams all teams data retrieved from the database collection
+ * @returns 
+ */
+const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
   const authenticatedUser = useAuthCtx()
   const [showNewTeamForm, setShowNewTeamForm] = useState(false)
+
+  // Filter teams that the user is not subscribed to
+  // This is done to show only the teams that the user can subscribe to
+  const filteredTeams = teams.filter((team) => {
+    return userData.subscriptions?.some(
+      (subscription) => subscription.teamId !== team.id
+    )
+  })
 
   return (
     <>
@@ -27,14 +49,8 @@ const LandingPageMainSection = ({ userData }: Props) => {
         Create new team
       </button>
       {showNewTeamForm && <NewTeamForm />}
-      <div>
-        <p>User subscriptions:</p>
-        <ul>{userData.subscriptions?.map((item, index) => <li key={index}>team id: {item.teamId}</li>)}</ul>
-      </div>
-      <div>
-        <p>Available teams:</p>
-        <p>... get all teams from db ...</p>
-      </div>
+      <UserSubscriptions userTeams={userTeams} />
+      <AvailableTeams teams={filteredTeams} />
     </>
   )
 }

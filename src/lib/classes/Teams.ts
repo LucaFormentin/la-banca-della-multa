@@ -24,7 +24,21 @@ export class Teams extends FirebaseUtils {
     super()
   }
 
+  get = async (): Promise<TeamT[]> => {
+    let s = await this.getSnapshot(this.dbRef)
+    let entries = await this.getEntries(s)
+
+    return entries
+  }
+
   create = async (data: TeamT) => {
     await this.pushData(this.dbRef, data)
+  }
+
+  findTeamById = async (teamId: string): Promise<TeamT | undefined> => {
+    let entries = await this.get()
+    let team = entries.find((team) => team.id === teamId)
+
+    return team
   }
 }

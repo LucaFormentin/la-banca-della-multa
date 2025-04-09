@@ -1,5 +1,6 @@
 import { type DatabaseReference, update } from 'firebase/database'
 import { FirebaseUtils } from '../firebase/utils'
+import { Teams, TeamT } from './Teams'
 
 export type SubscriptionT = {
   teamId: string
@@ -13,6 +14,10 @@ export type AuthenticatedUserT = {
   displayName: string | null
   photoURL: string | null
   subscriptions?: SubscriptionT[]
+}
+
+export type UserTeamDataT = SubscriptionT & {
+  teamData: TeamT
 }
 
 export class Users extends FirebaseUtils {
@@ -52,7 +57,34 @@ export class User extends Users {
     this.userRef = this.createDbRef(`${this.collection}/${key}`)
   }
 
+  getData = async (): Promise<AuthenticatedUserT> => {
+    return await this.getSnapshot(this.userRef)
+  }
+
   updateSubscriptions = async (updatedSubscriptions: SubscriptionT[]) => {
     await update(this.userRef, { subscriptions: updatedSubscriptions })
+  }
+
+  getTeamDataFromSubscriptions = async (): Promise<UserTeamDataT[]> => {
+    const userData = await this.getData()
+    const subscriptions = userData.subscriptions
+
+    if (!subscriptions) {
+      return []
+    }
+
+    const teamsData = subscriptions.map(async (s) => {
+      const teamId = s.teamId
+
+      const teamsC = new Teams()
+      const teamData = await teamsC.findTeamById(teamId)
+
+      return {
+        ...s,
+        teamData: teamData,
+      }
+    })
+
+    return await Promise.all(teamsData) as UserTeamDataT[]
   }
 }
