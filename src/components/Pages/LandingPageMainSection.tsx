@@ -18,11 +18,11 @@ type Props = {
 }
 
 /**
- * 
+ *
  * @param userData user data retrieved from the database with UID key
  * @param userTeams teams data retrieved from the single user subscriptions
  * @param teams all teams data retrieved from the database collection
- * @returns 
+ * @returns
  */
 const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
   const authenticatedUser = useAuthCtx()
@@ -42,13 +42,15 @@ const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
         <p>UID: {authenticatedUser?.uid}</p>
         <p>Email: {authenticatedUser?.email}</p>
       </div>
-      <button
-        className='rounded-xl border-2 border-white/[.145] p-2'
-        onClick={() => setShowNewTeamForm(!showNewTeamForm)}
-      >
-        Create new team
-      </button>
-      {showNewTeamForm && <NewTeamForm />}
+      <div className='flex flex-col gap-1'>
+        <button
+          className='rounded-xl border-2 border-white/[.145] p-2 w-full'
+          onClick={() => setShowNewTeamForm(!showNewTeamForm)}
+        >
+          Create new team
+        </button>
+        {showNewTeamForm && <NewTeamForm />}
+      </div>
       <UserSubscriptions userTeams={userTeams} />
       <AvailableTeams teams={filteredTeams} />
     </>
