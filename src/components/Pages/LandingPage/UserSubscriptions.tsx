@@ -1,5 +1,5 @@
 import { type UserTeamDataT } from '@/lib/classes/Users'
-import classes from './pages.module.css'
+import classes from './styles.module.css'
 import Image from 'next/image'
 import { Chip } from '@mui/material'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'

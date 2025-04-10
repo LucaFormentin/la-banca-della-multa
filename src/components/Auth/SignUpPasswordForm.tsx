@@ -1,6 +1,6 @@
 import { useForm } from '@tanstack/react-form'
 import { type FormEvent } from 'react'
-import classes from './auth.module.css'
+import classes from './styles.module.css'
 import { createUserWithEmailAndPassword } from '@/lib/firebase/auth'
 import toast from 'react-hot-toast'
 

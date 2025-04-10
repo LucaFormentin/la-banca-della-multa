@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import SignInController from './SignInController'
 import SignUpController from './SignUpController'
-import classes from './auth.module.css'
+import classes from './styles.module.css'
 
 const AuthController = () => {
   const authenticatedUser = useAuthCtx()

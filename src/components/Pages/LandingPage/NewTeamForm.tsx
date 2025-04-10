@@ -1,6 +1,6 @@
 import { useForm } from '@tanstack/react-form'
 import { type PropsWithChildren, type FormEvent } from 'react'
-import classes from './pages.module.css'
+import classes from './styles.module.css'
 import { api } from '@/lib/utils/api-client'
 import { type TeamT } from '@/lib/classes/Teams'
 import { useAuthCtx } from '@/app/context/auth-context'

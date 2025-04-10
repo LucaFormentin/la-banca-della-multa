@@ -1,7 +1,7 @@
 import { Divider } from '@mui/material'
 import SignInGoogleBtn from './SignInGoogleBtn'
 import SignInPasswordForm from './SignInPasswordForm'
-import classes from './auth.module.css'
+import classes from './styles.module.css'
 
 type Props = {
   onChangeAuthMode: () => void

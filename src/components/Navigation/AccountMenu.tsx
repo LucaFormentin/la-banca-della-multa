@@ -1,7 +1,7 @@
 import { useAuthCtx } from '@/app/context/auth-context'
 import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material'
 import { useState } from 'react'
-import classes from './nav.module.css'
+import classes from './styles.module.css'
 import Logout from '@mui/icons-material/Logout';
 
 export type MenuItemT = 'SIGN_OUT'

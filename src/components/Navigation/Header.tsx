@@ -2,11 +2,10 @@
 
 import { signOut } from '@/lib/firebase/auth'
 import { LANDING_PAGE, ROUTE } from '@/lib/routes'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import AccountMenu, { type MenuItemT } from './AccountMenu'
 import toast from 'react-hot-toast'
-import classes from './nav.module.css'
-import { Avatar } from '@mui/material'
+import classes from './styles.module.css'
 import { useAuthCtx } from '@/app/context/auth-context'
 
 const Header = () => {

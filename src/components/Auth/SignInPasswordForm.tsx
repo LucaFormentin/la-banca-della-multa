@@ -1,6 +1,6 @@
 import { useForm } from '@tanstack/react-form'
 import { FormEvent } from 'react'
-import classes from './auth.module.css'
+import classes from './styles.module.css'
 import { signInWithEmailAndPassword } from '@/lib/firebase/auth'
 import { type UserCredential } from 'firebase/auth'
 import { useRouter } from 'next/navigation'

@@ -1,5 +1,5 @@
 import { type TeamT } from '@/lib/classes/Teams'
-import classes from './pages.module.css'
+import classes from './styles.module.css'
 import Image from 'next/image'
 import { Chip } from '@mui/material'
 
