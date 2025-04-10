@@ -1,4 +1,3 @@
-import Header from '@/components/Navigation/Header'
 import LandingPageMainSection from '@/components/Pages/LandingPageMainSection'
 import { Teams } from '@/lib/classes/Teams'
 import { User, Users } from '@/lib/classes/Users'
@@ -28,15 +27,12 @@ export default async function LandingPage({
   const allTeams = await teamsC.get()
 
   return (
-    <>
-      <Header />
-      <section className='flex flex-col gap-4 p-2'>
-        <LandingPageMainSection
-          userData={user}
-          userTeams={userTeams}
-          teams={allTeams}
-        />
-      </section>
-    </>
+    <section className='flex flex-col gap-4 p-2'>
+      <LandingPageMainSection
+        userData={user}
+        userTeams={userTeams}
+        teams={allTeams}
+      />
+    </section>
   )
 }

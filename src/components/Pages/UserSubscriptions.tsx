@@ -3,12 +3,21 @@ import classes from './pages.module.css'
 import Image from 'next/image'
 import { Chip } from '@mui/material'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
+import { useRouter } from 'next/navigation'
+import { useAuthCtx } from '@/app/context/auth-context'
 
 type Props = {
   userTeams: UserTeamDataT[]
 }
 
 const UserSubscriptions = ({ userTeams }: Props) => {
+  const authenticatedUser = useAuthCtx()
+  const router = useRouter()
+
+  const goToTeamPage = (teamId: string) => {
+    router.push(`/${authenticatedUser?.uid}/teams/${teamId}`)
+  }
+
   return (
     <div>
       <p>User subscriptions:</p>
@@ -16,7 +25,7 @@ const UserSubscriptions = ({ userTeams }: Props) => {
         {userTeams.length === 0 && <p>No subscriptions yet.</p>}
         {userTeams.length > 0 &&
           userTeams.map((item) => (
-            <li className={classes.team__card} key={item.teamData.id}>
+            <li className={classes.team__card} key={item.teamData.id} onClick={goToTeamPage.bind(this, item.teamData.id)}>
               <Image
                 src={item.teamData.logo || '/assets/generic_team_logo.png'}
                 alt='team logo'

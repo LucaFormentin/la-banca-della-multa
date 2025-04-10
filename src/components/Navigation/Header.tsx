@@ -1,14 +1,17 @@
 'use client'
 
 import { signOut } from '@/lib/firebase/auth'
-import { ROUTE } from '@/lib/routes'
-import { useRouter } from 'next/navigation'
+import { LANDING_PAGE, ROUTE } from '@/lib/routes'
+import { usePathname, useRouter } from 'next/navigation'
 import AccountMenu, { type MenuItemT } from './AccountMenu'
 import toast from 'react-hot-toast'
 import classes from './nav.module.css'
+import { Avatar } from '@mui/material'
+import { useAuthCtx } from '@/app/context/auth-context'
 
 const Header = () => {
   const router = useRouter()
+  const authenticatedUser = useAuthCtx()
 
   const handleSignOut = async () => {
     signOut()
@@ -31,8 +34,15 @@ const Header = () => {
     }
   }
 
+  const redirectToLandingPage = () => {
+    router.push(`/${authenticatedUser?.uid}/${LANDING_PAGE}`)
+  }
+
   return (
     <header className={classes.header__wrapper}>
+      <h1 className={classes.header__title} onClick={redirectToLandingPage}>
+        La Banca della Multa
+      </h1>
       <AccountMenu onItemClick={handleMenuItemClick} />
     </header>
   )

@@ -15,18 +15,18 @@ import { motion } from 'motion/react'
  */
 const RoutesWrapper = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname()
-  const useAnimation = true
+  const useAnimation = false
 
   return (
     <AnimatePresence mode='wait'>
       <motion.section
         key={pathname}
-        {...(useAnimation && {
+        {...(useAnimation ? {
           initial: { opacity: 0 },
           animate: { opacity: 1 },
           exit: { opacity: 0 },
           transition: { duration: 0.5 },
-        })}
+        } : {})}
       >
         {children}
       </motion.section>
