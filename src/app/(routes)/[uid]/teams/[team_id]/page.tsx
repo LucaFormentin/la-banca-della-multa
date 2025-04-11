@@ -1,4 +1,5 @@
-import { Teams } from "@/lib/classes/Teams"
+import MenuItems from '@/components/Pages/TeamPage/MenuItems'
+import { Teams } from '@/lib/classes/Teams'
 
 export default async function TeamPage({
   params,
@@ -14,5 +15,14 @@ export default async function TeamPage({
   const teamsC = new Teams()
   const teamData = await teamsC.findTeamById(team_id)
 
-  return <div>Welcome to {teamData?.name}</div>
+  if (!teamData) {
+    return <p>Team not found...</p>
+  }
+
+  return (
+    <>
+      <p>Squadra selezionata: {teamData?.name}</p>
+      <MenuItems teamData={teamData} />
+    </>
+  )
 }
