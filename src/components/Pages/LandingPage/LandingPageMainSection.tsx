@@ -52,7 +52,7 @@ const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
         {showNewTeamForm && <NewTeamForm />}
       </div>
       <UserSubscriptions userTeams={userTeams} />
-      <AvailableTeams teams={filteredTeams} />
+      <AvailableTeams teams={userTeams.length === 0 ? teams : filteredTeams} />
     </>
   )
 }
