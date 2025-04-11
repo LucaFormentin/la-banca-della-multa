@@ -12,6 +12,10 @@ type InputWrapperProps = PropsWithChildren<{
   labelHtmlRef: string
 }>
 
+type Props = {
+  onTeamCreated: () => void
+}
+
 const InputWrapper = ({ children, ...props }: InputWrapperProps) => {
   return (
     <div className={classes.input__wrapper}>
@@ -21,7 +25,7 @@ const InputWrapper = ({ children, ...props }: InputWrapperProps) => {
   )
 }
 
-const NewTeamForm = () => {
+const NewTeamForm = (props: Props) => {
   const authenticatedUser = useAuthCtx()
 
   const form = useForm({
@@ -53,6 +57,10 @@ const NewTeamForm = () => {
         })
         .catch((err) => {
           console.error('Error creating team:', err)
+        })
+        .finally(() => {
+          props.onTeamCreated()
+          form.reset()
         })
     },
   })

@@ -6,10 +6,11 @@ import {
   type AuthenticatedUserT,
 } from '@/lib/classes/Users'
 import NewTeamForm from './NewTeamForm'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import UserSubscriptions from './UserSubscriptions'
 import AvailableTeams from './AvailableTeams'
 import { type TeamT } from '@/lib/classes/Teams'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   userData: AuthenticatedUserT
@@ -26,15 +27,24 @@ type Props = {
  */
 const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
   const authenticatedUser = useAuthCtx()
+  const router = useRouter()
   const [showNewTeamForm, setShowNewTeamForm] = useState(false)
+  const [filteredTeams, setFilteredTeams] = useState<TeamT[]>([])
 
-  // Filter teams that the user is not subscribed to
-  // This is done to show only the teams that the user can subscribe to
-  const filteredTeams = teams.filter((team) => {
-    return userData.subscriptions?.some(
-      (subscription) => subscription.teamId !== team.id
-    )
-  })
+  useEffect(() => {
+    // Filter teams that the user is not subscribed to
+    // This is done to show only the teams that the user can subscribe to
+    let f = teams.filter((team) => {
+      return !userData.subscriptions?.some(s => s.teamId === team.id)
+    })
+
+    setFilteredTeams(f)
+  }, [])
+
+  const handleTeamCreation = () => {
+    setShowNewTeamForm(false)
+    router.refresh()
+  }
 
   return (
     <>
@@ -49,7 +59,7 @@ const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
         >
           Create new team
         </button>
-        {showNewTeamForm && <NewTeamForm />}
+        {showNewTeamForm && <NewTeamForm onTeamCreated={handleTeamCreation} />}
       </div>
       <UserSubscriptions userTeams={userTeams} />
       <AvailableTeams teams={userTeams.length === 0 ? teams : filteredTeams} />

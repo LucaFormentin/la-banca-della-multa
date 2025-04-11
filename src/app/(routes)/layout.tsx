@@ -6,7 +6,7 @@ const RoutesLayout = ({ children }: { children: ReactNode }) => {
   return (
     <RoutesWrapper>
       <Header />
-      <section className='flex flex-col gap-4 p-2'>{children}</section>
+      <section className='flex flex-col gap-4 p-2 pb-12'>{children}</section>
     </RoutesWrapper>
   )
 }

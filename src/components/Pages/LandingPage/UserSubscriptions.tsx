@@ -30,7 +30,12 @@ const UserSubscriptions = ({ userTeams }: Props) => {
               key={item.teamData.id}
               onClick={goToTeamPage.bind(this, item.teamData.id)}
             >
+              <div
+                className={classes.team__id}
+                style={{ backgroundColor: item.teamData.color }}
+              />
               <Image
+                className={classes.team__logo}
                 src={item.teamData.logo || '/assets/generic_team_logo.png'}
                 alt='team logo'
                 width={64}

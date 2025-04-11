@@ -30,7 +30,11 @@
   @apply bg-white/[.145] rounded-lg p-2 px-4 relative flex gap-2 items-center;
 }
 
-.team__card > img:first-child {
+.team__id {
+  @apply w-2 h-full absolute left-0 rounded-l-lg;
+}
+
+.team__logo {
   @apply w-14 h-14 rounded-full border-2 border-white bg-white/[.45] p-1;
 }
 

@@ -14,7 +14,12 @@ const AvailableTeams = ({ teams }: Props) => {
       <ul className={classes.card__list}>
         {teams.map((t) => (
           <li className={classes.team__card} key={t.id}>
+            <div
+              className={classes.team__id}
+              style={{ backgroundColor: t.color }}
+            />
             <Image
+              className={classes.team__logo}
               src={t.logo || '/assets/generic_team_logo.png'}
               alt='team logo'
               width={64}
