@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useAuthCtx } from '@/app/context/auth-context'
 import { type TeamT } from '@/lib/classes/Teams'
 import { useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 
 type Props = {
   teamData: TeamT
@@ -15,28 +16,28 @@ type Props = {
 const ITEMS = [
   {
     label: 'Vedi Multe',
-    href: '/',
+    href: '/fines',
     color: 'bg-green-600',
     icon: 'fine',
     requireAdminRole: false,
   },
   {
     label: 'Controlla Cassa',
-    href: '/',
+    href: '/cash',
     color: 'bg-emerald-600',
     icon: 'cash',
     requireAdminRole: false,
   },
   {
     label: 'Gestisci Squadra',
-    href: '/',
+    href: '/manage-team',
     color: 'bg-amber-600',
     icon: 'team',
     requireAdminRole: true,
   },
   {
     label: 'Gestisci Multe',
-    href: '/',
+    href: '/manage-fines',
     color: 'bg-orange-600',
     icon: 'fine_manager',
     requireAdminRole: true,
@@ -45,6 +46,8 @@ const ITEMS = [
 
 const MenuItems = ({ teamData }: Props) => {
   const authenticatedUser = useAuthCtx()
+  const router = useRouter()
+  const pathname = usePathname()
   const [userRole, setUserRole] = useState<'ADMIN' | 'GUEST' | null>(null)
   const [items, setItems] = useState(ITEMS)
 
@@ -72,7 +75,11 @@ const MenuItems = ({ teamData }: Props) => {
       <p>Ruolo utente: {userRole}</p>
       <ul className={classes.menu__items__wrapper}>
         {items.map((item, index) => (
-          <li key={index} className={classes.menu__item}>
+          <li
+            key={index}
+            className={classes.menu__item}
+            onClick={() => router.push(`${pathname}/${item.href}`)}
+          >
             <div className={cn(classes.item__id, item.color)} />
             <Image
               src={`/assets/${item.icon}.png`}

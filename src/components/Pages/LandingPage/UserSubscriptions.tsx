@@ -25,7 +25,11 @@ const UserSubscriptions = ({ userTeams }: Props) => {
         {userTeams.length === 0 && <p>No subscriptions yet.</p>}
         {userTeams.length > 0 &&
           userTeams.map((item) => (
-            <li className={classes.team__card} key={item.teamData.id} onClick={goToTeamPage.bind(this, item.teamData.id)}>
+            <li
+              className={classes.team__card}
+              key={item.teamData.id}
+              onClick={goToTeamPage.bind(this, item.teamData.id)}
+            >
               <Image
                 src={item.teamData.logo || '/assets/generic_team_logo.png'}
                 alt='team logo'
