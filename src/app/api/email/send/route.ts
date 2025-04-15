@@ -19,7 +19,6 @@ export async function POST(req: Request) {
       react: ReactEmailTemplate({
         teamId: reqData.teamId,
         teamName: reqData.teamName,
-        adminAddress: reqData.adminAddress,
         adminName: reqData.adminName,
         applicantEmail: reqData.applicantEmail,
       }),

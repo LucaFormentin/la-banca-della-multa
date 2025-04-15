@@ -44,6 +44,15 @@ export class Users extends FirebaseUtils {
     return user
   }
 
+  findUserByEmail = async (
+    email: string
+  ): Promise<AuthenticatedUserT | undefined> => {
+    let entries = await this.get()
+    let user = entries.find((user) => user.email === email)
+
+    return user
+  }
+
   create = async (data: AuthenticatedUserT) => {
     await this.pushData(this.dbRef, data)
   }

@@ -1,12 +1,13 @@
-import { type DatabaseReference } from 'firebase/database'
+import { update, type DatabaseReference } from 'firebase/database'
 import { FirebaseUtils } from '../firebase/utils'
 
-type TeamMemberT = {
+export type TeamMemberT = {
   uid: string
   role: 'ADMIN' | 'GUEST'
 }
 
 export type TeamT = {
+  key?: string
   id: string
   createdAt: string
   name: string
@@ -17,8 +18,8 @@ export type TeamT = {
 }
 
 export class Teams extends FirebaseUtils {
-  private collection: string = 'teams'
-  private dbRef: DatabaseReference = this.createDbRef(this.collection)
+  protected collection: string = 'teams'
+  protected dbRef: DatabaseReference = this.createDbRef(this.collection)
 
   constructor() {
     super()
@@ -40,5 +41,22 @@ export class Teams extends FirebaseUtils {
     let team = entries.find((team) => team.id === teamId)
 
     return team
+  }
+}
+
+export class Team extends Teams {
+  private teamRef: DatabaseReference
+
+  constructor(key: string) {
+    super()
+    this.teamRef = this.createDbRef(`${this.collection}/${key}`)
+  }
+
+  getData = async (): Promise<TeamT> => {
+    return await this.getSnapshot(this.teamRef)
+  }
+
+  updateMembers = async (updatedMembers: TeamMemberT[]) => {
+    await update(this.teamRef, { members: updatedMembers })
   }
 }

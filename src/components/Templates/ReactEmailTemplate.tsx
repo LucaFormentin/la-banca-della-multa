@@ -16,18 +16,20 @@ import {
 export type EmailBodyT = {
   teamId: string
   teamName: string
-  adminAddress: string | null
+  adminAddress?: string | null
   adminName: string | null
   applicantEmail: string | null
 }
 
-const baseURL =
+const baseImgURL =
   process.env.NODE_ENV === 'production'
     ? 'http://192.168.1.170:3000'
     : '/static'
 
+const baseApiURL = process.env.VERCEL_URL
+
 const ReactEmailTemplate = (props: EmailBodyT) => {
-  const acceptRequestApiHref = '/'
+  const acceptRequestApiHref = `${baseApiURL}/api/email/accept-join-request?teamId=${props.teamId}&applicantEmail=${props.applicantEmail}`
 
   return (
     <Html>
@@ -37,7 +39,7 @@ const ReactEmailTemplate = (props: EmailBodyT) => {
           <Container className='border border-solid border-gray-300 rounded my-10 mx-auto p-5 max-w-xl'>
             <Section className='mt-8'>
               <Img
-                src={`${baseURL}/assets/android-chrome-512x512.png`}
+                src={`${baseImgURL}/assets/android-chrome-512x512.png`}
                 width={48}
                 height={48}
                 alt='logo'
