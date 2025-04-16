@@ -45,7 +45,7 @@ const AvailableTeamCard = ({ teamData: t, requestStatus }: Props) => {
           applicantEmail: authenticatedUser!.email || null,
         }
 
-        // api.post('/email/send', emailBodyData)
+        api.post('/email/send', emailBodyData)
       })
       .catch((err) => {
         console.error('Error:', err)
@@ -53,9 +53,13 @@ const AvailableTeamCard = ({ teamData: t, requestStatus }: Props) => {
       .finally(() => {
         toast.success('Richiesta inviata!')
 
-        api.get(
-          `/users/${authenticatedUser!.uid}/set-request-status?teamId=${id}`
-        )
+        api
+          .get(
+            `/users/${authenticatedUser!.uid}/set-request-status?teamId=${id}`
+          )
+          .finally(() => {
+            setStatus('PENDING')
+          })
       })
   }
 

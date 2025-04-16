@@ -1,5 +1,10 @@
 import { Team, type TeamMemberT, Teams } from '@/lib/classes/Teams'
-import { type SubscriptionT, User, Users } from '@/lib/classes/Users'
+import {
+  PendingSubscriptionT,
+  type SubscriptionT,
+  User,
+  Users,
+} from '@/lib/classes/Users'
 import { type NextRequest } from 'next/server'
 
 async function updateTeamMembers(
@@ -32,6 +37,19 @@ async function updateUserSubscriptions(
 
   const userC = new User(userKey)
   await userC.updateSubscriptions(updatedSubscriptions)
+}
+
+async function updateUserPendingSubscriptions(
+  userKey: string,
+  currentPendingSubs: PendingSubscriptionT[],
+  newTeamId: string
+) {
+  let updatedPendingSubscriptions = currentPendingSubs.filter(
+    (curr) => curr.teamId !== newTeamId
+  )
+
+  const usersC = new User(userKey)
+  await usersC.updatePendingSubscriptions(updatedPendingSubscriptions)
 }
 
 /**
@@ -68,6 +86,12 @@ export async function GET(req: NextRequest) {
   await updateUserSubscriptions(
     userData.key!,
     userData.subscriptions || [],
+    teamData.id
+  )
+
+  await updateUserPendingSubscriptions(
+    userData.key!,
+    userData.pendingSubscriptions || [],
     teamData.id
   )
 
