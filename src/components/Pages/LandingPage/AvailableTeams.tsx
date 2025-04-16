@@ -1,11 +1,10 @@
 import { type TeamT } from '@/lib/classes/Teams'
 import classes from './styles.module.css'
-import Image from 'next/image'
-import { Chip } from '@mui/material'
-import { useAuthCtx } from '@/app/context/auth-context'
+import AvailableTeamCard from './AvailableTeamCard'
+import { useEffect, useState } from 'react'
 import { api } from '@/lib/utils/api-client'
-import { type AuthenticatedUserT } from '@/lib/classes/Users'
-import { type EmailBodyT } from '@/components/Templates/ReactEmailTemplate'
+import { type PendingSubscriptionT } from '@/lib/classes/Users'
+import { useAuthCtx } from '@/app/context/auth-context'
 
 type Props = {
   teams: TeamT[]
@@ -18,73 +17,42 @@ type Props = {
  */
 const AvailableTeams = ({ teams }: Props) => {
   const authenticatedUser = useAuthCtx()
+  const [pendingSubscriptions, setPendingSubscriptions] = useState<
+    PendingSubscriptionT[]
+  >([])
 
-  const joinTeam = async (tData: TeamT) => {
-    const { id, name, members } = tData
-
-    const admin = members.find((m) => m.role === 'ADMIN')
-
-    if (!admin) {
-      console.error('No admin found for this team')
-      return
-    }
-
+  useEffect(() => {
     api
-      .get<{ data: AuthenticatedUserT }>(`/users/${admin.uid}`)
+      .get<{ data: PendingSubscriptionT[] }>(
+        `/users/${authenticatedUser!.uid}/get-pending-subscriptions`
+      )
       .then((res) => {
-        const { email: adminAddress, displayName: adminName } = res.data
+        const pendingSubs = res.data
 
-        const emailBodyData: EmailBodyT = {
-          teamId: id,
-          teamName: name,
-          adminAddress,
-          adminName,
-          applicantEmail: authenticatedUser?.email || null,
-        }
+        if (pendingSubs.length === 0) return
 
-        api.post('/email/send', emailBodyData)
+        setPendingSubscriptions(pendingSubs)
       })
       .catch((err) => {
         console.error('Error:', err)
       })
-  }
+  }, [])
 
   return (
     <div>
       <p>Available teams:</p>
       <ul className={classes.card__list}>
-        {teams.map((t) => (
-          <li className={classes.team__card} key={t.id}>
-            <div
-              className={classes.team__id}
-              style={{ backgroundColor: t.color }}
+        {teams.map((t) => {
+          let isPending = pendingSubscriptions.some((p) => p.teamId === t.id)
+
+          return (
+            <AvailableTeamCard
+              key={t.id}
+              teamData={t}
+              requestStatus={isPending ? 'PENDING' : 'JOIN'}
             />
-            <Image
-              className={classes.team__logo}
-              src={t.logo || '/assets/generic_team_logo.png'}
-              alt='team logo'
-              width={64}
-              height={64}
-            />
-            <div className={classes.team__info}>
-              <p>{t.name}</p>
-              <p>{t.location}</p>
-            </div>
-            <button
-              className={classes.join__btn}
-              onClick={joinTeam.bind(this, t)}
-            >
-              <Chip
-                label='JOIN'
-                color='primary'
-                size='small'
-                sx={{
-                  fontSize: '0.7rem',
-                }}
-              />
-            </button>
-          </li>
-        ))}
+          )
+        })}
       </ul>
     </div>
   )

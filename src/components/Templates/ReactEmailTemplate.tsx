@@ -35,7 +35,7 @@ const ReactEmailTemplate = (props: EmailBodyT) => {
     <Html>
       <Tailwind>
         <Body className='bg-white m-auto px-2 font-sans'>
-          <Preview>Richiesta di partecipazione</Preview>
+          <Preview>Hai una nuova richiesta di partecipazione!</Preview>
           <Container className='border border-solid border-gray-300 rounded my-10 mx-auto p-5 max-w-xl'>
             <Section className='mt-8'>
               <Img

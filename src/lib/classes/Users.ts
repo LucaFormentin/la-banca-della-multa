@@ -7,6 +7,11 @@ export type SubscriptionT = {
   role: 'ADMIN' | 'GUEST'
 }
 
+export type PendingSubscriptionT = {
+  teamId: string
+  requestStatus: 'PENDING' | 'JOIN'
+}
+
 export type AuthenticatedUserT = {
   key?: string
   uid: string
@@ -14,6 +19,7 @@ export type AuthenticatedUserT = {
   displayName: string | null
   photoURL: string | null
   subscriptions?: SubscriptionT[]
+  pendingSubscriptions?: PendingSubscriptionT[]
 }
 
 export type UserTeamDataT = SubscriptionT & {
@@ -74,6 +80,14 @@ export class User extends Users {
     await update(this.userRef, { subscriptions: updatedSubscriptions })
   }
 
+  updatePendingSubscriptions = async (
+    updatePendingSubscriptions: PendingSubscriptionT[]
+  ) => {
+    await update(this.userRef, {
+      pendingSubscriptions: updatePendingSubscriptions,
+    })
+  }
+
   getTeamDataFromSubscriptions = async (): Promise<UserTeamDataT[]> => {
     const userData = await this.getData()
     const subscriptions = userData.subscriptions
@@ -94,6 +108,6 @@ export class User extends Users {
       }
     })
 
-    return await Promise.all(teamsData) as UserTeamDataT[]
+    return (await Promise.all(teamsData)) as UserTeamDataT[]
   }
 }
