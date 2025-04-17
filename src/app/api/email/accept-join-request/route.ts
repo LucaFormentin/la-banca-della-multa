@@ -95,5 +95,5 @@ export async function GET(req: NextRequest) {
     teamData.id
   )
 
-  return Response.redirect('http://192.168.1.170:3000')
+  return Response.redirect(process.env.VERCEL_URL!, 302)
 }

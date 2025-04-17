@@ -23,7 +23,7 @@ export type EmailBodyT = {
 
 const baseImgURL =
   process.env.NODE_ENV === 'production'
-    ? 'http://192.168.1.170:3000'
+    ? process.env.VERCEL_URL
     : '/static'
 
 const baseApiURL = process.env.VERCEL_URL

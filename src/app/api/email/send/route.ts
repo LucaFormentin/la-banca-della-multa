@@ -11,10 +11,12 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function POST(req: Request) {
   const reqData = (await req.json()) as EmailBodyT
 
+  const toAddress = reqData.adminAddress || 'labancadellamulta@gmail.com'
+
   try {
     const { data, error } = await resend.emails.send({
-      from: 'La Banca della Multa <onboarding@resend.dev>',
-      to: ['labancadellamulta@gmail.com'],
+      from: 'La Banca della Multa <noreply@bancadellamulta.it>',
+      to: toAddress,
       subject: `Richiesta di partecipazione - #${generateRandomStr(12)}`,
       react: ReactEmailTemplate({
         teamId: reqData.teamId,
