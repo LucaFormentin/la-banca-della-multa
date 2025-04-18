@@ -5,46 +5,55 @@ import classes from './styles.module.css'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import Image from 'next/image'
 import { useAuthCtx } from '@/app/context/auth-context'
-import { type TeamT } from '@/lib/classes/Teams'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-
-type Props = {
-  teamData: TeamT
-}
+import { useTeamCtx } from '@/app/context/team-context'
 
 const ITEMS = [
   {
-    label: 'Vedi Multe',
+    title: 'Registro Multe',
+    subtitle: 'Controlla o assegna multe ai giocatori',
     href: '/fines',
     color: 'bg-green-600',
     icon: 'fine',
     requireAdminRole: false,
   },
   {
-    label: 'Controlla Cassa',
+    title: 'Controlla Cassa',
+    subtitle: 'Controlla gli incassi accumulati',
     href: '/cash',
     color: 'bg-emerald-600',
     icon: 'cash',
     requireAdminRole: false,
   },
   {
-    label: 'Gestisci Squadra',
+    title: 'Gestisci Squadra',
+    subtitle: 'Modifica i membri e i dati della squadra',
     href: '/manage-team',
     color: 'bg-amber-600',
     icon: 'team',
     requireAdminRole: true,
   },
   {
-    label: 'Gestisci Multe',
+    title: 'Gestisci Multe',
+    subtitle: 'Modifica i dati delle multe',
     href: '/manage-fines',
     color: 'bg-orange-600',
     icon: 'fine_manager',
     requireAdminRole: true,
   },
+  {
+    title: 'Gestisci Accessi',
+    subtitle: 'Controlla gli accessi alla squadra',
+    href: '/manage-access',
+    color: 'bg-red-600',
+    icon: 'access_manager',
+    requireAdminRole: true,
+  },
 ]
 
-const MenuItems = ({ teamData }: Props) => {
+const MenuItems = () => {
+  const { teamData } = useTeamCtx()
   const authenticatedUser = useAuthCtx()
   const router = useRouter()
   const pathname = usePathname()
@@ -87,7 +96,10 @@ const MenuItems = ({ teamData }: Props) => {
               width={64}
               height={64}
             />
-            <p>{item.label}</p>
+            <div className={classes.menu__item__info}>
+              <p>{item.title}</p>
+              <p>{item.subtitle}</p>
+            </div>
             <button className={classes.select__menu__item__btn}>
               <ChevronRightRoundedIcon fontSize='large' />
             </button>

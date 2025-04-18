@@ -10,6 +10,14 @@
   @apply w-2 h-full absolute left-0 rounded-l-lg;
 }
 
+.menu__item__info {
+  @apply flex flex-col;
+}
+
+.menu__item__info > p:nth-child(2) {
+  @apply text-xs text-gray-400;
+}
+
 .menu__item > img {
   @apply w-14 h-14 rounded-full border-2 border-white bg-white/[.45];
 }
