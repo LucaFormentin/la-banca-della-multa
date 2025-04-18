@@ -95,5 +95,5 @@ export async function GET(req: NextRequest) {
     teamData.id
   )
 
-  return Response.redirect(process.env.VERCEL_URL!, 302)
+  return Response.redirect(process.env.NEXT_PUBLIC_BASE_URL!, 302)
 }
