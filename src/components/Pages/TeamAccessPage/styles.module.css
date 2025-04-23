@@ -1,0 +1,47 @@
+.members__list {
+  @apply flex flex-col gap-2 w-full p-4;
+}
+
+.member__card {
+  @apply rounded-lg bg-white/[.145] p-2;
+}
+
+.member__card > div:nth-child(1) {
+  @apply flex items-center justify-between;
+}
+
+.member__card > hr {
+  @apply my-1;
+}
+
+.member__logo {
+  @apply w-12 h-12 rounded-full border-2 border-white bg-white/[.45] p-1;
+}
+
+.member__info {
+  @apply flex flex-col w-auto;
+}
+
+.member__info > p:nth-child(1) {
+  @apply text-xs;
+}
+
+.member__info > p:nth-child(2) {
+  @apply font-semibold;
+}
+
+.member__actions {
+  @apply flex gap-2;
+}
+
+.member__actions > button > img {
+  @apply w-12 h-12 rounded-full border-2;
+}
+
+.promote__user__btn > img {
+  @apply bg-green-600 border-green-950;
+}
+
+.revoke__access__btn > img {
+  @apply bg-red-600 border-red-950;
+}
