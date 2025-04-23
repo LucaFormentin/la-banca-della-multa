@@ -6,8 +6,9 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import Image from 'next/image'
 import { useAuthCtx } from '@/app/context/auth-context'
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useTeamCtx } from '@/app/context/team-context'
+import Link from 'next/link'
 
 const ITEMS = [
   {
@@ -55,7 +56,6 @@ const ITEMS = [
 const MenuItems = () => {
   const { teamData } = useTeamCtx()
   const authenticatedUser = useAuthCtx()
-  const router = useRouter()
   const pathname = usePathname()
   const [userRole, setUserRole] = useState<'ADMIN' | 'GUEST' | null>(null)
   const [items, setItems] = useState(ITEMS)
@@ -84,26 +84,24 @@ const MenuItems = () => {
       <p>Ruolo utente: {userRole}</p>
       <ul className={classes.menu__items__wrapper}>
         {items.map((item, index) => (
-          <li
-            key={index}
-            className={classes.menu__item}
-            onClick={() => router.push(`${pathname}/${item.href}`)}
-          >
-            <div className={cn(classes.item__id, item.color)} />
-            <Image
-              src={`/assets/${item.icon}.png`}
-              alt='team logo'
-              width={64}
-              height={64}
-            />
-            <div className={classes.menu__item__info}>
-              <p>{item.title}</p>
-              <p>{item.subtitle}</p>
-            </div>
-            <button className={classes.select__menu__item__btn}>
-              <ChevronRightRoundedIcon fontSize='large' />
-            </button>
-          </li>
+          <Link href={`${pathname}/${item.href}`} key={index}>
+            <li className={classes.menu__item}>
+              <div className={cn(classes.item__id, item.color)} />
+              <Image
+                src={`/assets/${item.icon}.png`}
+                alt='team logo'
+                width={64}
+                height={64}
+              />
+              <div className={classes.menu__item__info}>
+                <p>{item.title}</p>
+                <p>{item.subtitle}</p>
+              </div>
+              <button className={classes.select__menu__item__btn}>
+                <ChevronRightRoundedIcon fontSize='large' />
+              </button>
+            </li>
+          </Link>
         ))}
       </ul>
     </>
