@@ -6,6 +6,27 @@ export type TeamMemberT = {
   role: 'ADMIN' | 'GUEST'
 }
 
+export type RosterMemberTypes = 'PLAYER' | 'STAFF'
+
+export type PlayerT = {
+  id: string
+  lastName: string
+  firstName: string
+  number: number
+  role: 'PLAY' | 'GUARDIA' | 'ALA' | 'CENTRO'
+}
+
+export type StaffT = {
+  id: string
+  lastName: string
+  firstName: string
+  role: 'COACH' | 'ASSISTENTE' | 'DIRIGENTE'
+}
+
+export type RosterMember<T extends RosterMemberTypes> = T extends 'PLAYER'
+  ? PlayerT
+  : StaffT
+
 export type TeamT = {
   key?: string
   id: string
@@ -15,6 +36,10 @@ export type TeamT = {
   color: string
   logo?: string
   members: TeamMemberT[]
+  roster?: {
+    players: RosterMember<'PLAYER'>[]
+    staff: RosterMember<'STAFF'>[]
+  }
 }
 
 export class Teams extends FirebaseUtils {
@@ -58,5 +83,13 @@ export class Team extends Teams {
 
   updateMembers = async (updatedMembers: TeamMemberT[]) => {
     await update(this.teamRef, { members: updatedMembers })
+  }
+
+  addPlayerToRoster = async (updatedPlayers: RosterMember<'PLAYER'>[]) => {
+    await update(this.teamRef, { 'roster/players': updatedPlayers })
+  }
+
+  addStaffToRoster = async (updatedStaff: RosterMember<'STAFF'>[]) => {
+    await update(this.teamRef, { 'roster/staff': updatedStaff } )
   }
 }

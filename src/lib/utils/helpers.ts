@@ -31,3 +31,11 @@ export const getCurrentDateTime = () => {
 
   return datetime
 }
+
+/**
+ * Capitalizes the first letter of a string.
+ * @param str - The input string.
+ * @returns The input string with the first letter capitalized.
+ */
+export const capitalizeFirstLetter = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
