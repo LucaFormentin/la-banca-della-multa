@@ -1,9 +1,9 @@
 .header__wrapper {
-  @apply flex items-center p-2 justify-between w-full bg-primaryblue rounded-b-xl;
+  @apply w-full bg-primaryblue rounded-bl-2xl flex pr-2;
 }
 
-.header__wrapper > img {
-  @apply w-12 h-12 rounded-full border-2 border-white bg-white/[.45] flex justify-center items-center text-2xl;
+.header__logo__wrapper {
+  @apply w-16 h-16 bg-secondaryblue rounded-bl-2xl border-primaryblue overflow-hidden relative;
 }
 
 .header__title {
@@ -11,5 +11,5 @@
 }
 
 .account__circle__wrapper {
-  @apply flex items-center text-center;
+  @apply flex items-center text-center ml-auto;
 }

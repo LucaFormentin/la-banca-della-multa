@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import classes from './styles.module.css'
 import { useAuthCtx } from '@/app/context/auth-context'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Header = () => {
   const router = useRouter()
@@ -34,21 +35,24 @@ const Header = () => {
     }
   }
 
-  const redirectToLandingPage = () => {
-    router.push(`/${authenticatedUser?.uid}/${LANDING_PAGE}`)
-  }
-
   return (
     <header className={classes.header__wrapper}>
-      <Image
-        src={'/assets/android-chrome-512x512.png'}
-        alt='app-logo'
-        width={64}
-        height={64}
-      />
-      <h1 className={classes.header__title} onClick={redirectToLandingPage}>
-        La Banca della Multa
-      </h1>
+      <Link
+        href={`/${authenticatedUser?.uid}/${LANDING_PAGE}`}
+        className='flex'
+      >
+        <div className={classes.header__logo__wrapper}>
+          <Image
+            src={'/assets/android-chrome-512x512.png'}
+            alt='app-logo'
+            fill
+            className='object-cover'
+          />
+        </div>
+        <h1 className={classes.header__title}>
+          La Banca della Multa
+        </h1>
+      </Link>
       <AccountMenu onItemClick={handleMenuItemClick} />
     </header>
   )

@@ -23,7 +23,7 @@
 }
 
 .team__info > p:nth-child(1) {
-  @apply font-semibold;
+  @apply font-semibold text-lg;
 }
 
 .team__info > p:nth-child(2) {
