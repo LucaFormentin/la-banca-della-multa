@@ -2,22 +2,28 @@
   @apply flex flex-col items-center gap-2 w-full bg-white/[.145] rounded-lg p-4;
 }
 
-.input__wrapper {
-  @apply flex gap-4 w-full justify-between items-center text-sm;
-}
-
-.input__wrapper > label {
-  @apply items-start;
-}
-
-.input__wrapper > input {
-  @apply p-1 rounded-md text-black;
-}
-
-.input__wrapper > input:focus {
-  @apply outline-none;
-}
-
 .subscribe__btn {
   @apply bg-blue-500 text-white rounded-md p-2 w-1/2 mt-4;
 }
+
+.roster__card__list {
+  @apply flex flex-col gap-2 w-full p-4;
+}
+
+.roster__card {
+  @apply rounded-lg bg-white/[.145] p-2 flex gap-4;
+}
+
+.roster__card__image {
+  @apply w-12 h-12 rounded-full border-2 border-white bg-white/[.45] flex justify-center items-center text-2xl;
+}
+
+.roster__card__info {
+  @apply flex flex-col w-auto justify-center;
+}
+
+.roster__card__info > p:nth-child(2) {
+  @apply text-xs;
+}
+
+

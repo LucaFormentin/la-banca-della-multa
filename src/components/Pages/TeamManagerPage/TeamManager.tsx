@@ -6,6 +6,8 @@ import NewRosterMemberForm, { type MemberDataT } from './NewRosterMemberForm'
 import { api } from '@/lib/utils/api-client'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import classes from './styles.module.css'
+import RosterCard from './RosterCard'
 
 const NewRosterMemberCreation = ({ teamId }: { teamId: string }) => {
   const router = useRouter()
@@ -57,15 +59,13 @@ const TeamManager = () => {
   return (
     <div className='flex flex-col gap-4'>
       <NewRosterMemberCreation teamId={teamData.id} />
-      <ul className='flex flex-col gap-2'>
-        {teamData.roster?.players?.map((player, index) => (
-          <li key={index}>{player.lastName}</li>
-        ))}
+      <ul className={classes.roster__card__list}>
+        {teamData.roster?.players
+          ?.sort((a, b) => a.number - b.number)
+          .map((p) => <RosterCard key={p.id} data={p} />)}
       </ul>
-      <ul className='flex flex-col gap-2'>
-        {teamData.roster?.staff?.map((staff, index) => (
-          <li key={index}>{staff.lastName}</li>
-        ))}
+      <ul className={classes.roster__card__list}>
+        {teamData.roster?.staff?.map((s) => <RosterCard key={s.id} data={s} />)}
       </ul>
     </div>
   )

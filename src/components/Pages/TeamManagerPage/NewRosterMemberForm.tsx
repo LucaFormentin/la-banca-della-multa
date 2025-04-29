@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form'
-import { type PropsWithChildren, type FormEvent, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 import classes from './styles.module.css'
 import { FormControl, MenuItem, Select } from '@mui/material'
 import type {
@@ -9,28 +9,15 @@ import type {
   RosterMemberTypes,
 } from '@/lib/classes/Teams'
 import { capitalizeFirstLetter, generateRandomStr } from '@/lib/utils/helpers'
-
-type InputWrapperProps = PropsWithChildren<{
-  label: string
-  labelHtmlRef: string
-}>
-
-type Props = {
-  onFormSubmit: (memberData: MemberDataT) => void
-}
+import InputWrapper from '@/components/Templates/InputWrapper'
 
 export type MemberDataT = {
   type: RosterMemberTypes
   data: RosterMember<RosterMemberTypes>
 }
 
-const InputWrapper = ({ children, ...props }: InputWrapperProps) => {
-  return (
-    <div className={classes.input__wrapper}>
-      <label htmlFor={props.labelHtmlRef}>{props.label}</label>
-      {children}
-    </div>
-  )
+type Props = {
+  onFormSubmit: (memberData: MemberDataT) => void
 }
 
 const NewRosterMemberForm = (props: Props) => {

@@ -1,28 +1,15 @@
 import { useForm } from '@tanstack/react-form'
-import { type PropsWithChildren, type FormEvent } from 'react'
+import { type FormEvent } from 'react'
 import classes from './styles.module.css'
 import { api } from '@/lib/utils/api-client'
 import { type TeamT } from '@/lib/classes/Teams'
 import { useAuthCtx } from '@/app/context/auth-context'
 import { generateRandomStr, getCurrentDateTime } from '@/lib/utils/helpers'
 import toast from 'react-hot-toast'
-
-type InputWrapperProps = PropsWithChildren<{
-  label: string
-  labelHtmlRef: string
-}>
+import InputWrapper from '@/components/Templates/InputWrapper'
 
 type Props = {
   onTeamCreated: () => void
-}
-
-const InputWrapper = ({ children, ...props }: InputWrapperProps) => {
-  return (
-    <div className={classes.input__wrapper}>
-      <label htmlFor={props.labelHtmlRef}>{props.label}</label>
-      {children}
-    </div>
-  )
 }
 
 const NewTeamForm = (props: Props) => {

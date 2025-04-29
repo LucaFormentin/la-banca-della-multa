@@ -1,0 +1,15 @@
+.input__wrapper {
+  @apply flex gap-4 w-full justify-between items-center text-sm;
+}
+
+.input__wrapper > label {
+  @apply items-start;
+}
+
+.input__wrapper > input {
+  @apply p-1 rounded-md text-black;
+}
+
+.input__wrapper > input:focus {
+  @apply outline-none;
+}

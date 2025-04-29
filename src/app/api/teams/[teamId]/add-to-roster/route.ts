@@ -1,9 +1,8 @@
-import { MemberDataT } from '@/components/Pages/TeamManagerPage/NewRosterMemberForm'
+import { type MemberDataT } from '@/components/Pages/TeamManagerPage/NewRosterMemberForm'
 import {
   Team,
   Teams,
   type RosterMember,
-  type RosterMemberTypes,
 } from '@/lib/classes/Teams'
 
 export async function POST(
