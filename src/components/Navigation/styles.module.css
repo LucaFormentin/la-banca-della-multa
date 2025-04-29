@@ -2,8 +2,12 @@
   @apply flex items-center p-2 justify-between w-full bg-primaryblue rounded-b-xl;
 }
 
+.header__wrapper > img {
+  @apply w-12 h-12 rounded-full border-2 border-white bg-white/[.45] flex justify-center items-center text-2xl;
+}
+
 .header__title {
-  @apply flex gap-2 items-center p-2 text-xl font-semibold;
+  @apply flex gap-2 items-center p-2 text-xl font-medium;
 }
 
 .account__circle__wrapper {

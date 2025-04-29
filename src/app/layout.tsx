@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { inter } from './fonts/config'
+import { baloo2 } from './fonts/config'
 import AppProvider from './providers/app-provider'
 import { getAuthenticatedAppForUser } from '@/lib/firebase/server-app'
 import { AuthContextProvider } from './context/auth-context'
@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${baloo2.className} antialiased`}>
         <AppProvider>
           <AuthContextProvider initialUser={currentUser}>
             {children}

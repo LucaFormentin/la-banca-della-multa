@@ -7,6 +7,7 @@ import AccountMenu, { type MenuItemT } from './AccountMenu'
 import toast from 'react-hot-toast'
 import classes from './styles.module.css'
 import { useAuthCtx } from '@/app/context/auth-context'
+import Image from 'next/image'
 
 const Header = () => {
   const router = useRouter()
@@ -39,6 +40,12 @@ const Header = () => {
 
   return (
     <header className={classes.header__wrapper}>
+      <Image
+        src={'/assets/android-chrome-512x512.png'}
+        alt='app-logo'
+        width={64}
+        height={64}
+      />
       <h1 className={classes.header__title} onClick={redirectToLandingPage}>
         La Banca della Multa
       </h1>

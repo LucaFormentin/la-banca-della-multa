@@ -1,6 +1,6 @@
 'use client'
 
-import { inter } from '@/app/fonts/config'
+import { baloo2 } from '@/app/fonts/config'
 import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
@@ -8,7 +8,7 @@ const theme = createTheme({
     mode: 'dark',
   },
   typography: {
-    fontFamily: inter.style.fontFamily,
+    fontFamily: baloo2.style.fontFamily,
   },
 })
 
