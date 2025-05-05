@@ -3,7 +3,7 @@ import { FirebaseUtils } from '../firebase/utils'
 
 export type TeamMemberT = {
   uid: string
-  role: 'ADMIN' | 'GUEST'
+  role: 'SUPER' | 'ADMIN' | 'GUEST'
 }
 
 export type RosterMemberTypes = 'PLAYER' | 'STAFF'

@@ -42,17 +42,19 @@ const AvailableTeams = ({ teams }: Props) => {
     <div>
       <p>Available teams:</p>
       <ul className={classes.card__list}>
-        {teams.map((t) => {
-          let isPending = pendingSubscriptions.some((p) => p.teamId === t.id)
+        {teams.length === 0 && <p>No teams available.</p>}
+        {teams.length > 0 &&
+          teams.map((t) => {
+            let isPending = pendingSubscriptions.some((p) => p.teamId === t.id)
 
-          return (
-            <AvailableTeamCard
-              key={t.id}
-              teamData={t}
-              requestStatus={isPending ? 'PENDING' : 'JOIN'}
-            />
-          )
-        })}
+            return (
+              <AvailableTeamCard
+                key={t.id}
+                teamData={t}
+                requestStatus={isPending ? 'PENDING' : 'JOIN'}
+              />
+            )
+          })}
       </ul>
     </div>
   )

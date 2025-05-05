@@ -4,7 +4,7 @@ import { Teams, TeamT } from './Teams'
 
 export type SubscriptionT = {
   teamId: string
-  role: 'ADMIN' | 'GUEST'
+  role: 'SUPER' | 'ADMIN' | 'GUEST'
 }
 
 export type PendingSubscriptionT = {

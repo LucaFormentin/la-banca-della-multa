@@ -25,23 +25,26 @@ const AvailableTeamCard = ({ teamData: t, requestStatus }: Props) => {
   const joinTeam = () => {
     const { id, name, members } = t
 
-    const admin = members.find((m) => m.role === 'ADMIN')
+    //FIXME: change admin user to super user
+    
+    // const admin = members.find((m) => m.role === 'ADMIN')
+    const superUser = members.find((m) => m.role === 'SUPER')
 
-    if (!admin) {
-      console.error('No admin found for this team')
+    if (!superUser) {
+      console.error('No super user found for this team')
       return
     }
 
     api
-      .get<{ data: AuthenticatedUserT }>(`/users/${admin.uid}`)
+      .get<{ data: AuthenticatedUserT }>(`/users/${superUser.uid}`)
       .then((res) => {
-        const { email: adminAddress, displayName: adminName } = res.data
+        const { email: superUserAddress, displayName: superUserName } = res.data
 
         const emailBodyData: EmailBodyT = {
           teamId: id,
           teamName: name,
-          adminAddress,
-          adminName,
+          superUserAddress,
+          superUserName,
           applicantEmail: authenticatedUser!.email || null,
         }
 

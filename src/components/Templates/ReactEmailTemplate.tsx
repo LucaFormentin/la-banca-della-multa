@@ -16,8 +16,8 @@ import {
 export type EmailBodyT = {
   teamId: string
   teamName: string
-  adminAddress?: string | null
-  adminName: string | null
+  superUserAddress?: string | null
+  superUserName: string | null
   applicantEmail: string | null
 }
 
@@ -41,7 +41,7 @@ const ReactEmailTemplate = (props: EmailBodyT) => {
               <Heading className='text-black text-2xl text-center font-normal p-0 my-6 mx-0'>
                 <strong>La Banca della Multa</strong>
               </Heading>
-              <Text className='text-sm leading-6'>Ciao {props.adminName},</Text>
+              <Text className='text-sm leading-6'>Ciao {props.superUserName},</Text>
               <Text className='text-sm leading-6'>
                 Ti informo che l'utente <strong>{props.applicantEmail}</strong>{' '}
                 ha richiesto di partecipare alla tua squadra{' '}

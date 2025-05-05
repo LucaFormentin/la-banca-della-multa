@@ -23,7 +23,8 @@ const NewTeamForm = (props: Props) => {
       logo: '',
     },
     onSubmit: ({ value }) => {
-      // authenticatedUser uid is used to set the team admin
+      // authenticatedUser uid is used to set the member id
+      // super role to user who creates the team
       const teamData: TeamT = {
         id: generateRandomStr(12),
         createdAt: getCurrentDateTime(),
@@ -31,7 +32,7 @@ const NewTeamForm = (props: Props) => {
         members: [
           {
             uid: authenticatedUser!.uid,
-            role: 'ADMIN',
+            role: 'SUPER',
           },
         ],
       }

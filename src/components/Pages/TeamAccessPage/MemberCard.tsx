@@ -20,6 +20,10 @@ const MemberCard = ({ member, ...props }: Props) => {
     return <li className='text-red-700 text-sm'>Error: {error?.message}</li>
   }
 
+  // SUPER: no action available
+  // ADMIN: can be revoked
+  // GUEST: can be promoted to ADMIN and can be revoked
+
   return (
     <li className={classes.member__card}>
       <div>
@@ -41,24 +45,32 @@ const MemberCard = ({ member, ...props }: Props) => {
               />
             </button>
           )}
-          <button
-            className={classes.revoke__access__btn}
-            onClick={() => props.onTriggerAction('REVOKE')}
-          >
-            <Image
-              src={'/assets/delete-access.png'}
-              alt='revoke-access'
-              id='revoke-access'
-              width={64}
-              height={64}
-            />
-          </button>
+          {member.role !== 'SUPER' && (
+            <button
+              className={classes.revoke__access__btn}
+              onClick={() => props.onTriggerAction('REVOKE')}
+            >
+              <Image
+                src={'/assets/delete-access.png'}
+                alt='revoke-access'
+                id='revoke-access'
+                width={64}
+                height={64}
+              />
+            </button>
+          )}
         </div>
       </div>
       <Divider />
       <Chip
         label={member.role}
-        color={member.role === 'ADMIN' ? 'success' : 'warning'}
+        color={
+          member.role === 'SUPER'
+            ? 'success'
+            : member.role === 'ADMIN'
+              ? 'info'
+              : 'warning'
+        }
         size='small'
         sx={{
           fontSize: '0.7rem',

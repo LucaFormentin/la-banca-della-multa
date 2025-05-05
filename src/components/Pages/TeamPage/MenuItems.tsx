@@ -57,7 +57,7 @@ const MenuItems = () => {
   const { teamData } = useTeamCtx()
   const authenticatedUser = useAuthCtx()
   const pathname = usePathname()
-  const [userRole, setUserRole] = useState<'ADMIN' | 'GUEST' | null>(null)
+  const [userRole, setUserRole] = useState<'SUPER' | 'ADMIN' | 'GUEST' | null>(null)
   const [items, setItems] = useState(ITEMS)
 
   useEffect(() => {
@@ -73,8 +73,8 @@ const MenuItems = () => {
     if (!userRole) return
 
     // filter items based on user role
-    // if user is admin, show all items, otherwise filter out admin items
-    userRole === 'ADMIN'
+    // if user is super or admin, show all items, otherwise filter out admin items
+    (userRole === 'SUPER' || userRole === 'ADMIN')
       ? setItems(ITEMS)
       : setItems(ITEMS.filter((item) => !item.requireAdminRole))
   }, [userRole])

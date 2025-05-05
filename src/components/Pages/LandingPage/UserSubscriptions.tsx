@@ -42,7 +42,13 @@ const UserSubscriptions = ({ userTeams }: Props) => {
                 </div>
                 <Chip
                   label={item.role}
-                  color={item.role === 'ADMIN' ? 'success' : 'warning'}
+                  color={
+                    item.role === 'SUPER'
+                      ? 'success'
+                      : item.role === 'ADMIN'
+                        ? 'info'
+                        : 'warning'
+                  }
                   size='small'
                   sx={{
                     fontSize: '0.7rem',

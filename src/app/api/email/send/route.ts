@@ -11,7 +11,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function POST(req: Request) {
   const reqData = (await req.json()) as EmailBodyT
 
-  const toAddress = reqData.adminAddress || 'labancadellamulta@gmail.com'
+  const toAddress = reqData.superUserAddress || 'labancadellamulta@gmail.com'
 
   try {
     const { data, error } = await resend.emails.send({
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       react: ReactEmailTemplate({
         teamId: reqData.teamId,
         teamName: reqData.teamName,
-        adminName: reqData.adminName,
+        superUserName: reqData.superUserName,
         applicantEmail: reqData.applicantEmail,
       }),
     })
