@@ -40,6 +40,13 @@ export type TeamT = {
     players: RosterMember<'PLAYER'>[]
     staff: RosterMember<'STAFF'>[]
   }
+  fines?: FineT[]
+}
+
+export type FineT = {
+  id: string
+  name: string
+  amount: number
 }
 
 export class Teams extends FirebaseUtils {
@@ -92,4 +99,10 @@ export class Team extends Teams {
   addStaffToRoster = async (updatedStaff: RosterMember<'STAFF'>[]) => {
     await update(this.teamRef, { 'roster/staff': updatedStaff } )
   }
+
+  addFine = async (updatedFines: FineT[]) => {
+    await update(this.teamRef, { fines: updatedFines })
+  }
+
+  addFineToRosterMember = async () => {}
 }
