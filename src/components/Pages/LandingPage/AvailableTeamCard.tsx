@@ -24,10 +24,7 @@ const AvailableTeamCard = ({ teamData: t, requestStatus }: Props) => {
 
   const joinTeam = () => {
     const { id, name, members } = t
-
-    //FIXME: change admin user to super user
     
-    // const admin = members.find((m) => m.role === 'ADMIN')
     const superUser = members.find((m) => m.role === 'SUPER')
 
     if (!superUser) {

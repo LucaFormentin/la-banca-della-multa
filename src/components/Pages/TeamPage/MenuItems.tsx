@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation'
 import { useTeamCtx } from '@/app/context/team-context'
 import Link from 'next/link'
 
-const ITEMS = [
+export const ITEMS = [
   {
     title: 'Registro Multe',
     subtitle: 'Controlla o assegna multe ai giocatori',
