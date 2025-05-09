@@ -2,12 +2,13 @@ import { RosterMember } from '@/lib/classes/Teams'
 import classes from './styles.module.css'
 import { capitalizeFirstLetter } from '@/lib/utils/helpers'
 import Image from 'next/image'
+import { PropsWithChildren } from 'react'
 
-type Props = {
+type Props = PropsWithChildren &{
   data: RosterMember<'PLAYER'> | RosterMember<'STAFF'>
 }
 
-const RosterCard = ({ data }: Props) => {
+const RosterCard = ({ data, children }: Props) => {
   const isPlayer = 'number' in data
 
   return (
@@ -25,6 +26,7 @@ const RosterCard = ({ data }: Props) => {
         </p>
         <p>{capitalizeFirstLetter(data.role)}</p>
       </div>
+      {children}
     </li>
   )
 }

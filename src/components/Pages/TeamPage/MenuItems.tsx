@@ -4,11 +4,10 @@ import { cn } from '@/lib/utils/helpers'
 import classes from './styles.module.css'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import Image from 'next/image'
-import { useAuthCtx } from '@/app/context/auth-context'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { useTeamCtx } from '@/app/context/team-context'
 import Link from 'next/link'
+import useUserRole from '@/app/hooks/useUserRole'
 
 export const ITEMS = [
   {
@@ -54,57 +53,43 @@ export const ITEMS = [
 ]
 
 const MenuItems = () => {
-  const { teamData } = useTeamCtx()
-  const authenticatedUser = useAuthCtx()
   const pathname = usePathname()
-  const [userRole, setUserRole] = useState<'SUPER' | 'ADMIN' | 'GUEST' | null>(null)
+  const { userRole } = useUserRole()
   const [items, setItems] = useState(ITEMS)
-
-  useEffect(() => {
-    // set user role based on authenticated user
-    teamData.members.find((member) => {
-      if (member.uid === authenticatedUser?.uid) {
-        setUserRole(member.role)
-      }
-    })
-  }, [])
 
   useEffect(() => {
     if (!userRole) return
 
     // filter items based on user role
     // if user is super or admin, show all items, otherwise filter out admin items
-    (userRole === 'SUPER' || userRole === 'ADMIN')
+    userRole === 'SUPER' || userRole === 'ADMIN'
       ? setItems(ITEMS)
       : setItems(ITEMS.filter((item) => !item.requireAdminRole))
   }, [userRole])
 
   return (
-    <>
-      <p>Ruolo utente: {userRole}</p>
-      <ul className={classes.menu__items__wrapper}>
-        {items.map((item, index) => (
-          <Link href={`${pathname}/${item.href}`} key={index}>
-            <li className={classes.menu__item}>
-              <div className={cn(classes.item__id, item.color)} />
-              <Image
-                src={`/assets/${item.icon}.png`}
-                alt='team logo'
-                width={64}
-                height={64}
-              />
-              <div className={classes.menu__item__info}>
-                <p>{item.title}</p>
-                <p>{item.subtitle}</p>
-              </div>
-              <button className={classes.select__menu__item__btn}>
-                <ChevronRightRoundedIcon fontSize='large' />
-              </button>
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </>
+    <ul className={classes.menu__items__wrapper}>
+      {items.map((item, index) => (
+        <Link href={`${pathname}/${item.href}`} key={index}>
+          <li className={classes.menu__item}>
+            <div className={cn(classes.item__id, item.color)} />
+            <Image
+              src={`/assets/${item.icon}.png`}
+              alt='team logo'
+              width={64}
+              height={64}
+            />
+            <div className={classes.menu__item__info}>
+              <p>{item.title}</p>
+              <p>{item.subtitle}</p>
+            </div>
+            <button className={classes.select__menu__item__btn}>
+              <ChevronRightRoundedIcon fontSize='large' />
+            </button>
+          </li>
+        </Link>
+      ))}
+    </ul>
   )
 }
 

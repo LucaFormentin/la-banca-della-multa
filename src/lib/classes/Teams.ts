@@ -14,6 +14,7 @@ export type PlayerT = {
   firstName: string
   number: number
   role: 'PLAY' | 'GUARDIA' | 'ALA' | 'CENTRO'
+  fines?: FineT[]
 }
 
 export type StaffT = {
@@ -21,6 +22,7 @@ export type StaffT = {
   lastName: string
   firstName: string
   role: 'COACH' | 'ASSISTENTE' | 'DIRIGENTE'
+  fines?: FineT[]
 }
 
 export type RosterMember<T extends RosterMemberTypes> = T extends 'PLAYER'
@@ -97,12 +99,35 @@ export class Team extends Teams {
   }
 
   addStaffToRoster = async (updatedStaff: RosterMember<'STAFF'>[]) => {
-    await update(this.teamRef, { 'roster/staff': updatedStaff } )
+    await update(this.teamRef, { 'roster/staff': updatedStaff })
   }
 
   addFine = async (updatedFines: FineT[]) => {
     await update(this.teamRef, { fines: updatedFines })
   }
 
-  addFineToRosterMember = async () => {}
+  addFineToRosterMember = async (memberId: string, fineId: string) => {
+    let t = await this.getData()
+    let roster = [...(t.roster?.players || []), ...(t.roster?.staff || [])]
+
+    let fines = t.fines || []
+    let fineData = fines.find((f) => f.id === fineId)
+
+    roster.forEach(async (i) => {
+      if (i.id === memberId) {
+        let isPlayer = 'number' in i
+        let currentFines = i.fines || []
+        
+        let updatedFines = [...currentFines, fineData]
+        
+        if (isPlayer) {
+          let index = t.roster?.players.findIndex((r) => r.id === memberId)
+          await update(this.teamRef, { [`roster/players/${index}/fines`]: updatedFines })
+        } else {
+          let index = t.roster?.staff.findIndex((r) => r.id === memberId)
+          await update(this.teamRef, { [`roster/staff/${index}/fines`]: updatedFines })
+        }
+      }
+    })
+  }
 }

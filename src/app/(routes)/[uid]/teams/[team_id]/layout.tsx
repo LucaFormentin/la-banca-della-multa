@@ -28,9 +28,6 @@ export default async function TeamsLayout({
   }
 
   return (
-    <TeamContextProvider teamData={teamData}>
-      <p>Squadra selezionata: {teamData.name}</p>
-      {children}
-    </TeamContextProvider>
+    <TeamContextProvider teamData={teamData}>{children}</TeamContextProvider>
   )
 }

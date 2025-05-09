@@ -47,11 +47,7 @@ const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
   }
 
   return (
-    <>
-      <div id='user-info'>
-        <p>UID: {authenticatedUser?.uid}</p>
-        <p>Email: {authenticatedUser?.email}</p>
-      </div>
+    <div className='flex flex-col gap-4'>
       <div className='flex flex-col gap-1'>
         <button
           className='rounded-xl border-2 border-white/[.145] p-2 w-full'
@@ -63,7 +59,7 @@ const LandingPageMainSection = ({ userData, userTeams, teams }: Props) => {
       </div>
       <UserSubscriptions userTeams={userTeams} />
       <AvailableTeams teams={userTeams.length === 0 ? teams : filteredTeams} />
-    </>
+    </div>
   )
 }
 

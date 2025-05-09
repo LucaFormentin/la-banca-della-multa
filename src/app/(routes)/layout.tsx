@@ -8,7 +8,7 @@ const RoutesLayout = ({ children }: { children: ReactNode }) => {
     <RoutesWrapper>
       <Header />
       <Breadcrumbs />
-      <section className='flex flex-col gap-4 px-2 pb-12'>{children}</section>
+      <section className='flex flex-col gap-2 px-2 py-6 pb-12'>{children}</section>
     </RoutesWrapper>
   )
 }
